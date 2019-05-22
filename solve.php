@@ -2,7 +2,7 @@
 
 require_once 'vendor/autoload.php';
 
-ini_set('memory_limit', '8096M');
+ini_set('memory_limit', '12000M');
 
 class Country implements \Plastonick\Knapsack\Item
 {
@@ -29,9 +29,15 @@ class Country implements \Plastonick\Knapsack\Item
         return $this->population;
     }
 
-    public function getValue()
+    public function getArea()
     {
         return $this->area;
+    }
+
+    public function getValue()
+    {
+        // reverse normalise based on russia's area, i.e. we want to MINIMISE area rather than maximise (and negatives don't work!)
+        return 17125242 - $this->area;
     }
 }
 
@@ -53,7 +59,7 @@ $countriesMeta = [
     "Comoros" => [1861, 873724],
     "Netherlands" => [41526, 17319748],
     "Haiti" => [27065, 11242856],
-    "India" => [3287240, 1347508000],
+//    "India" => [3287240, 1347508000],
     "Israel" => [22072, 9032360],
     "Burundi" => [27816, 10953317],
     "Tuvalu" => [26, 10200],
@@ -61,65 +67,65 @@ $countriesMeta = [
     "Philippines" => [300000, 107672560],
     "Japan" => [377944, 126220000],
     "Sri Lanka" => [65610, 21670000],
-    "El Salvador" => [21040, 6704864],
-    "Grenada" => [344, 108825],
-    "Marshall Islands" => [181, 55500],
-    "Saint Lucia" => [617, 180454],
-    "Vietnam" => [331212, 94660000],
-    "Saint Vincent and the Grenadines" => [389, 110520],
-    "United Kingdom" => [242910, 66040229],
-    "Trinidad and Tobago" => [5155, 1359193],
-    "Pakistan" => [803940, 204743217],
-    "Jamaica" => [10991, 2726667],
-    "Liechtenstein" => [160, 38380],
-    "Kuwait" => [17818, 4226920],
-    "Luxembourg" => [2586, 613894],
-    "Antigua and Barbuda" => [442, 104084],
-    "Qatar" => [11571, 2700390],
-    "Germany" => [357168, 82979100],
-    "Nigeria" => [923768, 200962000],
-    "Dominican Republic" => [47875, 10358320],
-    "Seychelles" => [455, 96762],
-    "North Korea" => [120540, 25450000],
-    "Saint Kitts and Nevis" => [270, 56345],
-    "Gambia" => [10690, 2228075],
-    "Switzerland" => [41285, 8542323],
-    "São Tomé and Príncipe" => [1001, 201784],
-    "Nepal" => [147181, 29609623],
-    "Italy" => [301308, 60375749],
-    "Uganda" => [241551, 40006700],
-    "Andorra" => [464, 76177],
-    "Guatemala" => [108889, 17679735],
-    "Federated States of Micronesia" => [701, 105300],
-    "Malawi" => [118484, 17563749],
-    "Kiribati" => [811, 120100],
-    "Cyprus" => [5896, 864200],
-    "China" => [9640821, 1397441840],
-    "Indonesia" => [1904569, 268074600],
-    "Tonga" => [720, 100651],
-    "Czech Republic" => [78867, 10649800],
-    "Thailand" => [513120, 69183173],
-    "Denmark" => [43098, 5806081],
-    "Cape Verde" => [4033, 544081],
-    "Togo" => [56600, 7352000],
-    "Ghana" => [238533, 30280811],
-    "France" => [543965, 66992000],
-    "Poland" => [312685, 38413000],
-    "Jordan" => [89342, 10420612],
-    "Azerbaijan" => [86600, 9974578],
-    "United Arab Emirates" => [83600, 9541615],
-    "Portugal" => [92090, 10291027],
-    "Slovakia" => [49036, 5443120],
-    "Austria" => [83879, 8859992],
-    "Turkey" => [783562, 82003882],
-    "Hungary" => [93029, 9771000],
-    "Moldova" => [33843, 3547539],
-    "Cuba" => [109884, 11221060],
-    "Slovenia" => [20273, 2066880],
-    "Ethiopia" => [1063652, 107534882],
-    "Benin" => [112622, 11362269],
-    "Dominica" => [739, 74308],
-    "Armenia" => [29743, 2969200],
+//    "El Salvador" => [21040, 6704864],
+//    "Grenada" => [344, 108825],
+//    "Marshall Islands" => [181, 55500],
+//    "Saint Lucia" => [617, 180454],
+//    "Vietnam" => [331212, 94660000],
+//    "Saint Vincent and the Grenadines" => [389, 110520],
+//    "United Kingdom" => [242910, 66040229],
+//    "Trinidad and Tobago" => [5155, 1359193],
+//    "Pakistan" => [803940, 204743217],
+//    "Jamaica" => [10991, 2726667],
+//    "Liechtenstein" => [160, 38380],
+//    "Kuwait" => [17818, 4226920],
+//    "Luxembourg" => [2586, 613894],
+//    "Antigua and Barbuda" => [442, 104084],
+//    "Qatar" => [11571, 2700390],
+//    "Germany" => [357168, 82979100],
+//    "Nigeria" => [923768, 200962000],
+//    "Dominican Republic" => [47875, 10358320],
+//    "Seychelles" => [455, 96762],
+//    "North Korea" => [120540, 25450000],
+//    "Saint Kitts and Nevis" => [270, 56345],
+//    "Gambia" => [10690, 2228075],
+//    "Switzerland" => [41285, 8542323],
+//    "São Tomé and Príncipe" => [1001, 201784],
+//    "Nepal" => [147181, 29609623],
+//    "Italy" => [301308, 60375749],
+//    "Uganda" => [241551, 40006700],
+//    "Andorra" => [464, 76177],
+//    "Guatemala" => [108889, 17679735],
+//    "Federated States of Micronesia" => [701, 105300],
+//    "Malawi" => [118484, 17563749],
+//    "Kiribati" => [811, 120100],
+//    "Cyprus" => [5896, 864200],
+//    "China" => [9640821, 1397441840],
+//    "Indonesia" => [1904569, 268074600],
+//    "Tonga" => [720, 100651],
+//    "Czech Republic" => [78867, 10649800],
+//    "Thailand" => [513120, 69183173],
+//    "Denmark" => [43098, 5806081],
+//    "Cape Verde" => [4033, 544081],
+//    "Togo" => [56600, 7352000],
+//    "Ghana" => [238533, 30280811],
+//    "France" => [543965, 66992000],
+//    "Poland" => [312685, 38413000],
+//    "Jordan" => [89342, 10420612],
+//    "Azerbaijan" => [86600, 9974578],
+//    "United Arab Emirates" => [83600, 9541615],
+//    "Portugal" => [92090, 10291027],
+//    "Slovakia" => [49036, 5443120],
+//    "Austria" => [83879, 8859992],
+//    "Turkey" => [783562, 82003882],
+//    "Hungary" => [93029, 9771000],
+//    "Moldova" => [33843, 3547539],
+//    "Cuba" => [109884, 11221060],
+//    "Slovenia" => [20273, 2066880],
+//    "Ethiopia" => [1063652, 107534882],
+//    "Benin" => [112622, 11362269],
+//    "Dominica" => [739, 74308],
+//    "Armenia" => [29743, 2969200],
 //    "Albania" => [28703, 2870324],
 //    "Syria" => [185180, 18284407],
 //    "Sierra Leone" => [71740, 7075641],
@@ -233,11 +239,14 @@ $countriesMeta = [
 ];
 
 $totalPop = 0;
+$totalArea = 0;
 $countries = [];
 foreach ($countriesMeta as $name => list($area, $population)) {
-    // reverse normalise based on russia's area, i.e. we want to MINIMISE area rather than maximise
-//    $area = 17125242 - $area;
-//    $area *= -1;
+    $totalArea += $area;
+
+    if ($area === null || $population === null) {
+        die('issue loading country data');
+    }
 
     $countries[] = new Country($name, $area, $population);
     $totalPop += $population;
@@ -254,16 +263,23 @@ $solver = new \Plastonick\Knapsack\Solver($countries, $limit);
 $solution = $solver->solve();
 
 $numCountries = count($solution->getItems());
-$usage = -1 * ($solution->getWeight() - ($numCountries * 17125242));
-$usage = $solution->getWeight();
-echo "used {$usage}\n";
+
+$areaUsed = number_format(array_reduce($solution->getItems(), function ($cmp, Country $country) { return $cmp + $country->getArea(); }), 0);
+$totalArea = number_format($totalArea, 0);
+echo "used area {$areaUsed} km2 out of a possible {$totalArea} km2\n";
+
+
+$usedPop = number_format($solution->getWeight(), 0);
+$totalPop = number_format($totalPop, 0);
+echo "used population {$usedPop} out of a possible {$totalPop}\n";
 echo "over {$numCountries} countries\n";
+echo "in {$solution->getIterations()} iterations\n";
 
 echo "Area is: {$solution->getValue()}\n";
 
 echo "\n";
 
 /** @var Country $country */
-foreach ($solution->getItems() as $country) {
-    echo "{$country->getName()} has been added\n";
-}
+//foreach ($solution->getItems() as $country) {
+//    echo "{$country->getName()} has been added\n";
+//}
