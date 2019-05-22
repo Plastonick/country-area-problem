@@ -1,0 +1,5 @@
+{
+    "require": {
+        "plastonick/knapsack-solver": "^1.2"
+    }
+}
